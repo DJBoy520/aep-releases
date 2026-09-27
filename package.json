@@ -11,6 +11,7 @@
     "index.js",
     "openclaw.plugin.json",
     "bin/aep.exe",
+    "bin/aep",
     "README.md"
   ],
   "keywords": [

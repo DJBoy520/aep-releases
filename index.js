@@ -6,19 +6,26 @@ import { spawn } from 'node:child_process';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 定位随包附带的独立可执行文件
 function resolveBinary() {
   const isWin = process.platform === 'win32';
-  const binName = isWin ? 'aep.exe' : 'aep';
-  const binPath = path.join(__dirname, 'bin', binName);
+  const binDir = path.join(__dirname, 'bin');
 
-  if (!fs.existsSync(binPath)) {
-    throw new Error(`AEP Binary not found at: ${binPath}. Please ensure aep.exe is bundled in the bin/ directory.`);
+  const candidates = isWin
+    ? [path.join(binDir, 'aep.exe'), path.join(binDir, 'aep-windows-x64.exe')]
+    : [path.join(binDir, 'aep'), path.join(binDir, 'aep-linux-x64')];
+
+  for (const p of candidates) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
   }
-  return binPath;
+
+  throw new Error(
+    `AEP Binary not found. Searched candidates: ${candidates.join(', ')}.\n` +
+    `Please download the binary from https://github.com/DJBoy520/aep-releases/releases and place it in the bin/ directory.`
+  );
 }
 
-// 执行底层 CLI/MCP 命令并安全返回文本结果
 function runAepCommand(args, cwd = process.cwd()) {
   const binary = resolveBinary();
   return new Promise((resolve, reject) => {
@@ -52,23 +59,53 @@ function runAepCommand(args, cwd = process.cwd()) {
   });
 }
 
-// 导出 OpenClaw 插件标准接口
-export default function createPlugin() {
-  return {
-    id: 'aep-plugin',
-    name: 'AEP Evidence Notarization',
-    version: '1.0.0',
-    tools: {
-      aep_notarize: async ({ targetPath, useTsa = true, useChain = true }) => {
-        const args = ['notarize', targetPath];
-        if (useTsa) args.push('--tsa');
-        if (useChain) args.push('--chain');
-        return await runAepCommand(args);
-      },
-      aep_verify: async ({ packagePath }) => {
-        const args = ['verify', packagePath];
-        return await runAepCommand(args);
-      }
+export const plugin = {
+  id: 'aep-releases',
+  name: 'AEP Evidence Notarization',
+  description: 'AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin',
+  version: '2.1.7',
+
+  register(api) {
+    if (!api) return;
+
+    if (api.registerTool) {
+      api.registerTool({
+        name: 'aep_notarize',
+        description: '一键执行本地证据链上公证与TSA国密时间戳锚定，产出L4不可篡改存证包(.aep)',
+        parameters: {
+          type: 'object',
+          properties: {
+            targetPath: { type: 'string', description: '待存证的目标文件或目录绝对路径' },
+            useTsa: { type: 'boolean', default: true, description: '是否追加TSA国密时间戳' },
+            useChain: { type: 'boolean', default: true, description: '是否锚定至AEP存证链' }
+          },
+          required: ['targetPath']
+        },
+        async execute({ targetPath, useTsa = true, useChain = true }) {
+          const args = ['notarize', targetPath];
+          if (useTsa) args.push('--tsa');
+          if (useChain) args.push('--chain');
+          return await runAepCommand(args);
+        }
+      });
+
+      api.registerTool({
+        name: 'aep_verify',
+        description: '对.aep存证包执行六阶完整性深度验真并输出报告',
+        parameters: {
+          type: 'object',
+          properties: {
+            packagePath: { type: 'string', description: '待校验的.aep存证包绝对路径' }
+          },
+          required: ['packagePath']
+        },
+        async execute({ packagePath }) {
+          const args = ['validate', packagePath];
+          return await runAepCommand(args);
+        }
+      });
     }
-  };
-}
+  }
+};
+
+export default plugin;
