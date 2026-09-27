@@ -1,6 +1,6 @@
 {
   "name": "aep-releases",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary & Plugin Distribution Hub",
   "type": "module",
   "main": "./index.js",

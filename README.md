@@ -3,7 +3,7 @@
 > **AI Agent Native Digital Evidence Infrastructure**  
 > An immutable digital evidence and integrity verification infrastructure designed for AI Agents and developers.
 
-[English](README.md) | [中文说明](README.zh-CN.md)
+[English](https://github.com/DJBoy520/aep-releases#readme) | [中文说明](https://github.com/DJBoy520/aep-releases/blob/main/README.zh-CN.md)
 
 ---
 

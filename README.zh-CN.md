@@ -3,7 +3,7 @@
 > **AI Agent Native Digital Evidence Infrastructure**  
 > 面向 AI 智能体与开发者的数字证据与不可篡改存证基础设施。
 
-[中文说明](README.zh-CN.md) | [English](README.md)
+[中文说明](https://github.com/DJBoy520/aep-releases/blob/main/README.zh-CN.md) | [English](https://github.com/DJBoy520/aep-releases#readme)
 
 ---
 
