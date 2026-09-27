@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,9 +20,21 @@ function resolveBinary() {
     }
   }
 
+  // 懒加载自动自愈：若当前环境缺失对应平台的二进制，自动就地调用 install-binary.js 拉取
+  const installScript = path.join(__dirname, 'scripts', 'install-binary.js');
+  if (fs.existsSync(installScript)) {
+    console.log('[aep-releases] 正在按需懒加载下载当前系统对应的 AEP 原生执行体...');
+    const res = spawnSync(process.execPath, [installScript], { stdio: 'inherit' });
+    if (res.status === 0) {
+      for (const p of candidates) {
+        if (fs.existsSync(p)) return p;
+      }
+    }
+  }
+
   throw new Error(
-    `AEP Binary not found. Searched candidates: ${candidates.join(', ')}.\n` +
-    `Please download the binary from https://github.com/DJBoy520/aep-releases/releases and place it in the bin/ directory.`
+    `AEP Binary not found for platform ${process.platform}.\n` +
+    `Please download the binary from https://github.com/DJBoy520/aep-releases/releases/tag/v2.1.7 and place it in the bin/ directory.`
   );
 }
 
