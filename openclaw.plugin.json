@@ -4,8 +4,7 @@
   "version": "2.1.8",
   "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin",
   "categories": [
-    "developer-tools",
-    "security"
+    "developer-tools"
   ],
   "configSchema": {
     "type": "object",
