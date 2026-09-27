@@ -82,13 +82,14 @@ const tools = [
       type: 'object',
       properties: {
         targetPath: { type: 'string', description: '待存证的目标文件或目录绝对路径' },
+        project: { type: 'string', default: 'default', description: '存证归属的项目标识 slug' },
         useTsa: { type: 'boolean', default: true, description: '是否追加TSA国密时间戳' },
         useChain: { type: 'boolean', default: true, description: '是否锚定至AEP存证链' }
       },
       required: ['targetPath']
     },
-    async execute({ targetPath, useTsa = true, useChain = true }) {
-      const args = ['notarize', targetPath];
+    async execute({ targetPath, project = 'default', useTsa = true, useChain = true }) {
+      const args = ['notarize', targetPath, '--project', project];
       if (useTsa) args.push('--tsa');
       if (useChain) args.push('--chain');
       return await runAepCommand(args);

@@ -90,7 +90,12 @@ function download(url, dest, cb) {
 
       file.on('finish', () => {
         file.close(() => {
-          console.log('\n[aep-releases] ✓ 下载完成!');
+          if (total > 0 && cur < total) {
+            fs.unlink(dest, () => {});
+            cb(new Error(`下载连接中断，数据不完整: 仅接收 ${(cur / 1024 / 1024).toFixed(1)}MB / 期望 ${(total / 1024 / 1024).toFixed(1)}MB`));
+            return;
+          }
+          console.log('\n[aep-releases] ✓ 下载完成且完整性核对无误!');
           cb(null);
         });
       });
