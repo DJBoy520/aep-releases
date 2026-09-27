@@ -2,7 +2,7 @@
   "id": "aep-releases",
   "name": "AEP Evidence Notarization",
   "version": "2.1.7",
-  "description": "AEP国密存证与时间戳锚定插件（Windows/Linux 官方二进制版）",
+  "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin",
   "type": "tool",
   "entry": "./index.js",
   "capabilities": [
@@ -10,14 +10,7 @@
   ],
   "configSchema": {
     "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "autoUpdate": {
-        "type": "boolean",
-        "default": true,
-        "description": "是否自动从 aep-releases 检查最新二进制版本"
-      }
-    }
+    "additionalProperties": false
   },
   "tools": [
     {
@@ -41,7 +34,9 @@
             "default": true
           }
         },
-        "required": ["targetPath"]
+        "required": [
+          "targetPath"
+        ]
       }
     },
     {
@@ -55,8 +50,19 @@
             "description": "待校验的.aep存证包绝对路径"
           }
         },
-        "required": ["packagePath"]
+        "required": [
+          "packagePath"
+        ]
       }
     }
-  ]
+  ],
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "aep_notarize",
+      "aep_verify"
+    ]
+  }
 }

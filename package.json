@@ -4,6 +4,11 @@
   "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary & Plugin Distribution Hub",
   "type": "module",
   "main": "./index.js",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ]
+  },
   "bin": {
     "aep-plugin": "./index.js"
   },
@@ -26,5 +31,8 @@
     "gm-crypto"
   ],
   "author": "AEP Working Group",
-  "license": "Commercial"
+  "license": "Commercial",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
 }

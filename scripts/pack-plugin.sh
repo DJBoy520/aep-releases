@@ -7,16 +7,28 @@ BIN_DIR="$DIR/bin"
 echo "=== AEP Plugin Packaging Script ==="
 echo "Target: $DIR"
 
-if [ ! -f "$BIN_DIR/aep.exe" ]; then
-  echo "⚠️ 警告: $BIN_DIR/aep.exe 尚不存在！"
-  echo "请先将编译好的 aep.exe 复制到 distribution/bin/ 目录下。"
-  exit 1
+# 检查当前系统对应的核心二进制
+if [ "$OS" = "Windows_NT" ] || [ "$(uname -s | grep -i 'mingw\|cygwin\|msys')" ]; then
+  if [ ! -f "$BIN_DIR/aep.exe" ]; then
+    echo "⚠️ 警告: $BIN_DIR/aep.exe 尚不存在！"
+    echo "请先运行 scripts/fetch-private-release.sh 下载发布制品。"
+    exit 1
+  fi
+  echo "✓ 发现 Windows 执行体: $BIN_DIR/aep.exe"
+else
+  if [ ! -f "$BIN_DIR/aep" ] && [ ! -f "$BIN_DIR/aep-linux-x64" ]; then
+    echo "⚠️ 警告: $BIN_DIR/aep 或 $BIN_DIR/aep-linux-x64 尚不存在！"
+    echo "请先运行 scripts/fetch-private-release.sh linux 下载发布制品。"
+    exit 1
+  fi
+  if [ -f "$BIN_DIR/aep-linux-x64" ] && [ ! -f "$BIN_DIR/aep" ]; then
+    cp "$BIN_DIR/aep-linux-x64" "$BIN_DIR/aep"
+    chmod +x "$BIN_DIR/aep"
+  fi
+  echo "✓ 发现 Linux 执行体: $BIN_DIR/aep"
 fi
 
-echo "✓ 发现 Windows 核心执行体: $BIN_DIR/aep.exe"
-
-# 使用 openclaw plugins pack 生成标准分发制品
-OUT_TGZ="$DIR/aep-plugin-1.0.0.tgz"
+OUT_TGZ="$DIR/aep-plugin-2.1.7.tgz"
 rm -f "$OUT_TGZ"
 
 echo "正在打包制品至: $OUT_TGZ ..."

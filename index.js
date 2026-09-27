@@ -59,6 +59,47 @@ function runAepCommand(args, cwd = process.cwd()) {
   });
 }
 
+const toolPluginMetadataSymbol = Symbol.for("openclaw.plugin-sdk.tool-plugin.metadata");
+
+const tools = [
+  {
+    name: 'aep_notarize',
+    label: 'AEP Notarize',
+    description: '一键执行本地证据链上公证与TSA国密时间戳锚定，产出L4不可篡改存证包(.aep)',
+    parameters: {
+      type: 'object',
+      properties: {
+        targetPath: { type: 'string', description: '待存证的目标文件或目录绝对路径' },
+        useTsa: { type: 'boolean', default: true, description: '是否追加TSA国密时间戳' },
+        useChain: { type: 'boolean', default: true, description: '是否锚定至AEP存证链' }
+      },
+      required: ['targetPath']
+    },
+    async execute({ targetPath, useTsa = true, useChain = true }) {
+      const args = ['notarize', targetPath];
+      if (useTsa) args.push('--tsa');
+      if (useChain) args.push('--chain');
+      return await runAepCommand(args);
+    }
+  },
+  {
+    name: 'aep_verify',
+    label: 'AEP Verify',
+    description: '对.aep存证包执行六阶完整性深度验真并输出报告',
+    parameters: {
+      type: 'object',
+      properties: {
+        packagePath: { type: 'string', description: '待校验的.aep存证包绝对路径' }
+      },
+      required: ['packagePath']
+    },
+    async execute({ packagePath }) {
+      const args = ['validate', packagePath];
+      return await runAepCommand(args);
+    }
+  }
+];
+
 export const plugin = {
   id: 'aep-releases',
   name: 'AEP Evidence Notarization',
@@ -67,45 +108,31 @@ export const plugin = {
 
   register(api) {
     if (!api) return;
-
-    if (api.registerTool) {
-      api.registerTool({
-        name: 'aep_notarize',
-        description: '一键执行本地证据链上公证与TSA国密时间戳锚定，产出L4不可篡改存证包(.aep)',
-        parameters: {
-          type: 'object',
-          properties: {
-            targetPath: { type: 'string', description: '待存证的目标文件或目录绝对路径' },
-            useTsa: { type: 'boolean', default: true, description: '是否追加TSA国密时间戳' },
-            useChain: { type: 'boolean', default: true, description: '是否锚定至AEP存证链' }
-          },
-          required: ['targetPath']
-        },
-        async execute({ targetPath, useTsa = true, useChain = true }) {
-          const args = ['notarize', targetPath];
-          if (useTsa) args.push('--tsa');
-          if (useChain) args.push('--chain');
-          return await runAepCommand(args);
-        }
-      });
-
-      api.registerTool({
-        name: 'aep_verify',
-        description: '对.aep存证包执行六阶完整性深度验真并输出报告',
-        parameters: {
-          type: 'object',
-          properties: {
-            packagePath: { type: 'string', description: '待校验的.aep存证包绝对路径' }
-          },
-          required: ['packagePath']
-        },
-        async execute({ packagePath }) {
-          const args = ['validate', packagePath];
-          return await runAepCommand(args);
-        }
-      });
+    for (const tool of tools) {
+      if (api.registerTool) {
+        api.registerTool({
+          name: tool.name,
+          description: tool.description,
+          parameters: tool.parameters,
+          execute: tool.execute
+        });
+      }
     }
   }
+};
+
+plugin[toolPluginMetadataSymbol] = {
+  id: 'aep-releases',
+  name: 'AEP Evidence Notarization',
+  description: 'AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin',
+  activation: { onStartup: true },
+  configSchema: { type: 'object', additionalProperties: false },
+  tools: tools.map(t => ({
+    name: t.name,
+    label: t.label,
+    description: t.description,
+    parameters: t.parameters
+  }))
 };
 
 export default plugin;
