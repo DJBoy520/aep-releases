@@ -32,7 +32,7 @@
     "timestamp",
     "gm-crypto"
   ],
-  "author": "AEP Working Group",
+  "author": "DJBoy520 <https://github.com/DJBoy520>",
   "license": "Commercial",
   "devDependencies": {
     "esbuild": "^0.28.2"
