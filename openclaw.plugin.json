@@ -1,0 +1,51 @@
+{
+  "id": "aep-plugin",
+  "name": "AEP Evidence Notarization",
+  "version": "1.0.0",
+  "description": "AEP国密存证与时间戳锚定插件（Windows纯二进制版）",
+  "type": "tool",
+  "entry": "./index.js",
+  "capabilities": [
+    "tools"
+  ],
+  "tools": [
+    {
+      "name": "aep_notarize",
+      "description": "一键执行本地证据链上公证与TSA国密时间戳锚定，产出L4不可篡改存证包(.aep)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "targetPath": {
+            "type": "string",
+            "description": "待存证的目标文件或目录绝对路径"
+          },
+          "useTsa": {
+            "type": "boolean",
+            "description": "是否追加TSA国密时间戳(默认true)",
+            "default": true
+          },
+          "useChain": {
+            "type": "boolean",
+            "description": "是否锚定至AEP存证链(默认true)",
+            "default": true
+          }
+        },
+        "required": ["targetPath"]
+      }
+    },
+    {
+      "name": "aep_verify",
+      "description": "对.aep存证包执行六阶完整性深度验真并输出报告",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "packagePath": {
+            "type": "string",
+            "description": "待校验的.aep存证包绝对路径"
+          }
+        },
+        "required": ["packagePath"]
+      }
+    }
+  ]
+}

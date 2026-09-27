@@ -1,0 +1,29 @@
+{
+  "name": "aep-releases",
+  "version": "1.0.0",
+  "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary & Plugin Distribution Hub",
+  "type": "module",
+  "main": "./index.js",
+  "bin": {
+    "aep-plugin": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "openclaw.plugin.json",
+    "bin/aep.exe",
+    "README.md"
+  ],
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "mcp",
+    "aep",
+    "attestation",
+    "evidence",
+    "notarization",
+    "timestamp",
+    "gm-crypto"
+  ],
+  "author": "AEP Working Group",
+  "license": "Commercial"
+}

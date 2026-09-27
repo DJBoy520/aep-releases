@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "aep": {
+      "command": "${workspaceFolder}/bin/aep.exe",
+      "args": ["mcp"]
+    }
+  }
+}
