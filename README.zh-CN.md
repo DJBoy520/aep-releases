@@ -13,12 +13,12 @@ AEP（Attestation & Evidence Exchange Protocol）提供了一套轻量高效的�
 
 ## ✨ 核心特性
 
-- 🧩 **Agent Native**：原生内建 MCP 协议与 OpenClaw 插件契约，AI 助手在对话中即可直接唤醒存证与验真。
+- 🧩 **Agent Native**：原生内建 MCP 协议与 OpenClaw 插件契约，AI 助手在对话中即可直接唤醒存证与验证。
 - ⚡ **Zero Dependency**：独立单文件二进制交付，无 Node.js、Python 或第三方运行时依赖，开箱即用。
 - 🖥️ **Windows Native**：提供 Windows x64 独立绿色版与向导安装包。
 - 🐧 **Linux Native**：提供 Linux x64 纯静态 ELF 单文件程序。
-- 🔐 **Verifiable Evidence**：覆盖文件哈希指纹、实体结构、数字签名、TSA 可信时间戳及链上锚定。
-- 🌐 **Cloud Infrastructure**：原生对接 AEP 官方三大核心存证基础设施（CA / TSA / Chain），并支持 IAM 统一接入。
+- 🔐 **Verifiable Evidence**：覆盖文件哈希指纹、实体结构、数字签名、TSA 可信时间戳（符合国密 GM/T 0033 与国际 RFC 3161 双轨标准）及链上锚定。
+- 🌐 **Cloud Infrastructure**：原生对接 AEP 三大公共信任基础设施（CA / TSA / Chain），并支持 IAM 统一接入。
 
 ---
 
@@ -50,16 +50,16 @@ AEP（Attestation & Evidence Exchange Protocol）提供了一套轻量高效的�
 
 ---
 
-## 🌐 官方公共存证基础设施 (Infrastructure)
+## 🌐 公共存证基础设施 (Infrastructure)
 
-AEP 生态已部署三大官方标准化公共存证基础设施，客户端默认已完成无感对接：
+AEP 生态已部署三大标准化公共存证基础设施，客户端默认已完成无感对接：
 
-1. **`ca.aep.org.cn` (AEP-PKI 权威认证中心)**  
+1. **`ca.aep.org.cn` (AEP-PKI 认证中心)**  
    提供基于密码学机制的公钥证书核验与身份签名背书，确立存证主体的可信数字身份。
 2. **`tsa.aep.org.cn` (AEP-TSA 可信时间戳服务)**  
-   提供高精度、不可逆的时间凭证签发，证明特定数据指纹在特定历史时刻确实存在且未被改动。
+   提供高精度、符合国密（GM/T 0033）与国际标准（RFC 3161）的时间凭证签发，证明特定数据指纹在特定历史时刻确实存在且未被改动。
 3. **`chain.aep.org.cn` (AEP-Chain 分布式存证锚定服务)**  
-   AEP 原生区块链存证锚定网络，将证据包摘要及状态根不可篡改地锚定至链上，提供独立于本地存储的全局可验证锚点。
+   AEP 原生区块链存证锚定网络，将证据包摘要及状态根可验证地锚定至链上，提供独立于本地存储的全局可验证锚点。
 
 ### 🔑 IAM 开发者接入与高级服务 (`iam.aep.org.cn`)
 访问 [https://iam.aep.org.cn](https://iam.aep.org.cn) 注册开发者账号：
@@ -166,7 +166,7 @@ aep notarize ./my-project --tsa --chain
 aep notarize ./dist-output --tsa --chain
 ```
 
-### 3. 证据验真 (Validate)
+### 3. 证据验证 (Validate)
 ```bash
 # 对生成的存证包执行完整性校验
 aep validate ./my-project.aep

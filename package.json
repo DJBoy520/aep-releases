@@ -1,6 +1,6 @@
 {
   "name": "aep-releases",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "AEP (AI Evidence Protocol) Official Binary & Plugin Distribution Hub",
   "type": "module",
   "main": "./index.js",

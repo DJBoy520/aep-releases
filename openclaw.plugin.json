@@ -1,7 +1,7 @@
 {
   "id": "aep-releases",
   "name": "AEP Evidence Notarization",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "AEP (AI Evidence Protocol) Official Binary Plugin",
   "categories": [
     "developer-tools"
