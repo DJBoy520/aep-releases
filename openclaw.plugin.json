@@ -2,7 +2,7 @@
   "id": "aep-releases",
   "name": "AEP Evidence Notarization",
   "version": "2.1.8",
-  "description": "AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin",
+  "description": "AEP (AI Evidence Protocol) Official Binary Plugin",
   "categories": [
     "developer-tools"
   ],
