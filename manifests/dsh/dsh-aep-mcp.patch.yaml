@@ -1,0 +1,10 @@
+# AEP MCP 覆盖层（DSH --patch 机制）
+# 用法: dsh --profile web --patch /path/to/dsh-aep-mcp.patch.yaml <app-args...>
+# 校准: 覆盖键以 `dsh --profile web --dump-config` 的输出为准（mcp_servers 段）；
+#       若内层应用键名不同，改写本文件的键名即可（服务器命令不变）。
+mcp_servers:
+  aep:
+    command: node
+    args:
+      - /home/dj/WorkSpaces/openclaw/aep-refimpl/packages/mcp-server/dist/index.js
+    enabled: true
