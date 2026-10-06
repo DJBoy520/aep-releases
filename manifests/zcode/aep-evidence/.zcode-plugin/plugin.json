@@ -1,13 +1,17 @@
 {
   "name": "aep-evidence",
-  "version": "0.1.0",
+  "version": "2.2.0",
   "description": "AEP (AI Evidence Protocol) 存证与验真：MCP 全工具（21 项）+ 存证/验真工作流技能。数字作品打时间戳、区块链锚定、七阶段验真。",
-  "author": { "name": "AEP" },
+  "author": {
+    "name": "AEP"
+  },
   "skills": "./skills",
   "mcpServers": {
     "aep": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/aep-mcp-bundle.cjs"]
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/aep-mcp-bundle.cjs"
+      ]
     }
   }
 }
