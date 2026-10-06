@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.join(__dirname, '..');
 const binDir = path.join(projectRoot, 'bin');
 
-const VERSION = 'v2.1.7';
+const VERSION = 'v2.2.0';
 const REPO = 'DJBoy520/aep-releases';
 
 const isWin = process.platform === 'win32';

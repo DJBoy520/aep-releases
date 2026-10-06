@@ -1,9 +1,7 @@
-bin/aep.exe
-bin/aep-windows-x64-setup.exe
-bin/aep-windows-x64.zip
-bin/aep-linux-x64
-bin/aep-linux-x64.tar.gz
-*.tgz
 node_modules/
-.env
-.env.local
+bin/aep
+bin/aep.exe
+bin/aep-linux-x64
+bin/*.tar.gz
+bin/*.zip
+*.log
