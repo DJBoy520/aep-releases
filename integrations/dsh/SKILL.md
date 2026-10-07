@@ -66,4 +66,7 @@ aep validate <slug>-session.aep --json
 - 制品接入事件链：`artifact add` 的制品若未与事件建立关系，validate 会给
   AEP-E012「isolated Artifact」warning → state=inconclusive（部分确立，不是失败）。
   消除：制品化后补一条引用它的事件；或接受 inconclusive 并向用户说明。
+- **见证顺序不可逆**：链锚定的 envelopePayload 在链上冻结——锚定后再补任何 TSA/
+  新见证会使锚定承诺失效（validate 报 AEP-E005，包转 invalid）。需要升级见证时
+  **必须重新 notarize**（`--tsa --chain` 一次成型），不可对已锚定包追加。
 - 项目收尾：`aep project close <slug>`；长期归档 `aep project archive <slug>`。

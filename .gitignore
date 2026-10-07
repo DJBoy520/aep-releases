@@ -5,3 +5,8 @@ bin/aep-linux-x64
 bin/*.tar.gz
 bin/*.zip
 *.log
+.env
+bin/*.exe
+bin/*.tar.gz
+bin/aep
+bin/aep-linux-x64
