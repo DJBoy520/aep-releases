@@ -117,7 +117,7 @@ export const plugin = {
   id: 'aep-releases',
   name: 'AEP Evidence Notarization',
   description: 'AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin',
-  version: '2.2.0',
+  version: '2.2.1',
 
   register(api) {
     if (!api) return;

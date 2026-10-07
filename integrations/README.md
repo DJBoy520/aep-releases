@@ -2,7 +2,7 @@
 
 > 所有 AI 助手（ZCode / Hermes / OpenCode / DSH / OpenClaw / Claude Desktop / Cursor）的
 > AEP 插件与技能统一保存在本目录，**统一版本、统一分发**。版本号始终跟随 AEP client
->（`../package.json` 的 version，当前 2.2.0）。任何技能/插件的修改必须在本目录进行，
+>（`../package.json` 的 version，当前 2.2.1）。任何技能/插件的修改必须在本目录进行，
 > 其他位置的副本（如 aep-refimpl/plugins 的本地 dev 市场）一律视为构建产物。
 
 ## 目录

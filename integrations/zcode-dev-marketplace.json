@@ -4,7 +4,7 @@
     {
       "name": "aep-evidence",
       "source": "./aep-evidence",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "description": "AEP (AI Evidence Protocol) 存证与验真：MCP 全工具（21 项）+ 产物存证技能 + 会话过程存证技能。",
       "displayName": "AEP Evidence",
       "displayName_i18n": {
