@@ -33,3 +33,12 @@ cd some-tmp && npm init -y >/dev/null && npm i /home/dj/WorkSpaces/AEP/aep-relea
   `promote.sh <版本> <产物路径>` 重新晋升。
 - 全局目录（`~/.local/bin`、`/usr/local/bin` 等）不落任何 AEP 文件；
   PATH 只挂 `$HOME/WorkSpaces/AEP/bin`。规则详见 `~/WorkSpaces/AEP/bin/README.md`。
+
+## 发布资产铁律（2026-10-07 老板指定，所有后续版本沿用）
+
+- **只发两个压缩包**：`aep-windows-x64.zip` + `aep-linux-x64.tar.gz`（恰好是
+  install-binary.js 的固定下载契约名，安装器零改动）。裸二进制（aep.exe /
+  aep-linux-x64）与 Windows 安装器（setup.exe）不再作为 Release 附件。
+- **每个附件必须算 SHA-256 + SM3 双摘要**，写入 Release 说明正文
+  （SM3：`openssl dgst -sm3 <文件>`；SHA-256：`sha256sum <文件>`）。
+- 摘要只进 Release body，不作为额外附件（附件总数恒为 2）。
