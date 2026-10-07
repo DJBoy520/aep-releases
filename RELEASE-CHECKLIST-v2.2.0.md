@@ -18,6 +18,18 @@ Release 对象并挂附件（本机无 GitHub API token，无法代发）。
 
 ## 验证（发布后）
 ```bash
-cd some-tmp && npm init -y >/dev/null && npm i /home/dj/WorkSpaces/openclaw/aep-releases
+cd some-tmp && npm init -y >/dev/null && npm i /home/dj/WorkSpaces/AEP/aep-releases
 ./bin/aep version --json   # 期望 2.2.0
 ```
+
+## 本机可执行流出铁律（2026-10-07 定，所有后续版本沿用）
+
+- 构建产物先落暂存区 `bin/`（无版本名 `aep` / `aep-linux-x64` 是 install-binary.js /
+  index.js / pack-plugin.sh 的固定契约，禁止改名）。
+- 再晋升到本机唯一权威执行点 `~/WorkSpaces/AEP/bin/`：
+  `scripts/promote.sh <版本>`（校验自版本 → 复制为 `aep-<版本>` → 原子切 symlink → 自检
+  → **自动清理历史版本，运行时只留最新**）。
+- 旧版本一律不上本机，归档在 GitHub Release；回滚 = 取回旧版产物后
+  `promote.sh <版本> <产物路径>` 重新晋升。
+- 全局目录（`~/.local/bin`、`/usr/local/bin` 等）不落任何 AEP 文件；
+  PATH 只挂 `$HOME/WorkSpaces/AEP/bin`。规则详见 `~/WorkSpaces/AEP/bin/README.md`。

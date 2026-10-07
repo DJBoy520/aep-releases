@@ -7,7 +7,7 @@ p='/home/dj/.hermes/config.yaml'
 import os; os.system(f'cp {p} {p}.bak-aep-$(date +%Y%m%d)')
 d=yaml.safe_load(open(p))
 ms=d.setdefault('mcp_servers',{})
-ms['aep']={'command':'node','args':['/home/dj/WorkSpaces/openclaw/aep-refimpl/packages/mcp-server/dist/index.js'],'enabled':True}
+ms['aep']={'command':'node','args':['/home/dj/WorkSpaces/AEP/aep-refimpl/packages/mcp-server/dist/index.js'],'enabled':True}
 open(p,'w').write(yaml.safe_dump(d,sort_keys=False,allow_unicode=True))
 print('hermes mcp_servers:', list(ms.keys()))
 PY

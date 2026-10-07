@@ -34,7 +34,7 @@ function resolveBinary() {
 
   throw new Error(
     `AEP Binary not found for platform ${process.platform}.\n` +
-    `Please download the binary from https://github.com/DJBoy520/aep-releases/releases/tag/v2.1.7 and place it in the bin/ directory.`
+    `Please download the binary from https://github.com/DJBoy520/aep-releases/releases/latest and place it in the bin/ directory.`
   );
 }
 
@@ -117,7 +117,7 @@ export const plugin = {
   id: 'aep-releases',
   name: 'AEP Evidence Notarization',
   description: 'AEP (Attestation & Evidence Exchange Protocol) Official Binary Plugin',
-  version: '2.1.7',
+  version: '2.2.0',
 
   register(api) {
     if (!api) return;

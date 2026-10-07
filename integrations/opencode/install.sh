@@ -10,7 +10,7 @@ if '"aep"' in s.split('"mcp"')[-1][:400]:
 entry='''  "mcp": {
     "aep": {
       "type": "local",
-      "command": ["node", "/home/dj/WorkSpaces/openclaw/aep-refimpl/packages/mcp-server/dist/index.js"],
+      "command": ["node", "/home/dj/WorkSpaces/AEP/aep-refimpl/packages/mcp-server/dist/index.js"],
       "environment": {},
       "enabled": true
     },'''
