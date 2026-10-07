@@ -42,3 +42,6 @@ cd some-tmp && npm init -y >/dev/null && npm i /home/dj/WorkSpaces/AEP/aep-relea
 - **每个附件必须算 SHA-256 + SM3 双摘要**，写入 Release 说明正文
   （SM3：`openssl dgst -sm3 <文件>`；SHA-256：`sha256sum <文件>`）。
 - 摘要只进 Release body，不作为额外附件（附件总数恒为 2）。
+- **Release 说明只写相对上一版的变化**（新增/修复/变更三段式 changelog）；
+  不写亮点、不写测试用例数量、不写版本字样、不写尚不存在的平台（如 macOS）；
+  name 字段留空只显示 tag。
